@@ -30,7 +30,7 @@ def predict():
         # return render_template('index.html', prediction_text='Please give correct input, all either 0 or 1 (except age b/w 5:100) $ {} '.format(codn))
 
 
-# if __name__ == "__main__":
-#    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
 
-app.run(host='localhost',port=80)
+#app.run(host='localhost',port=80)
