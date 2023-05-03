@@ -23,7 +23,23 @@ def predict():
         model_for_cluster = pickle.load(open('model_for_cluster.pkl','rb'))
         cluster = model_for_cluster.predict(asdfhklj)
 
+        scaler_RMF = pickle.load(open('scaler_RMF.pkl','rb'))
+        transformed = scaler_RMF.transform(np.asarray([k[1],k[2],k[3]]).reshape(1, -1))
         
+        asdasd = pickle.load(open('kmeans_M.pkl','rb'))
+        K0= asdasd.predict(transformed[0][0].reshape(-1, 1))
+
+        asdasd = pickle.load(open('kmeans_F.pkl','rb'))
+        K1 = asdasd.predict(transformed[0][1].reshape(-1, 1))
+
+        asdasd = pickle.load(open('kmeans_R.pkl','rb'))
+        K2 = asdasd.predict(transformed[0][2].reshape(-1, 1))
+
+        
+        total = K0 + K1 + K2 
+        if(total > 4 ):         return render_template('index.html', prediction_text=('cluster is {}'.format(cluster) , 'with SEGMENTATION = HIGH' , 'with your input is {} '.format(k)))
+        elif(total < 2 ):       return render_template('index.html', prediction_text=('cluster is {}'.format(cluster) , 'with SEGMENTATION = LOW' , 'with your input is {} '.format(k)))
+        elif( 2 <= total <=4 ): return render_template('index.html', prediction_text=('cluster is {}'.format(cluster) , 'with SEGMENTATION = MID' , 'with your input is {} '.format(k)))
         return render_template('index.html', prediction_text=('cluster is {}'.format(cluster) ,'with your input is {} '.format(k)))
         
     # except:
@@ -31,6 +47,6 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+   app.run(debug=True)
 
-#app.run(host='localhost',port=80)
+# app.run(host='localhost',port=80)
